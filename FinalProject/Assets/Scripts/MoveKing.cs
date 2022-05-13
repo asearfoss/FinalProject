@@ -16,14 +16,14 @@ public class MoveKing : MonoBehaviour
     Vector3 enemyPos1;
     float dist;
     float dist1;
-    public static int enemyLives;
+    public static int enemyLives = 2;
 
     // Start is called before the first frame update
     void Start()
     {
         flip = new Vector3(10.0f, 10.0f, 0.0f);
-        enemyObj = GameObject.Find("Enemy");
-        enemyObj1 = GameObject.FindWithTag("Enemy1");
+        enemyObj = GameObject.Find("enemy");
+        enemyObj1 = GameObject.Find("enemy1");
 
         lastPos = transform.position;
         lastXPos = transform.position.x;
@@ -57,12 +57,12 @@ public class MoveKing : MonoBehaviour
         {
             animate.SetFloat("TransAnim", 0);
         }
-        if (Input.GetKeyDown(KeyCode.Space) && dist < 5.0f)
+        if (Input.GetKeyDown(KeyCode.Space) && dist < 3.0f)
         {
             enemyLives = enemyLives - 1;
             animate.SetFloat("TransAnim", 4);
         }
-        if (Input.GetKeyDown(KeyCode.Space) && dist1 < 5.0f)
+        if (Input.GetKeyDown(KeyCode.Space) && dist1 < 3.0f)
         {
             enemyLives = enemyLives - 1;
             animate.SetFloat("TransAnim", 4);
