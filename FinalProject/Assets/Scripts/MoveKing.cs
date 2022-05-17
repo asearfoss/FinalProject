@@ -57,12 +57,12 @@ public class MoveKing : MonoBehaviour
         {
             animate.SetFloat("TransAnim", 0);
         }
-        if (Input.GetKeyDown(KeyCode.Space) && dist < 3.0f)
+        if (Input.GetKeyDown(KeyCode.Space) && dist < 2.0f)
         {
             enemyLives = enemyLives - 1;
             animate.SetFloat("TransAnim", 4);
         }
-        if (Input.GetKeyDown(KeyCode.Space) && dist1 < 3.0f)
+        if (Input.GetKeyDown(KeyCode.Space) && dist1 < 2.0f)
         {
             enemyLives = enemyLives - 1;
             animate.SetFloat("TransAnim", 4);
