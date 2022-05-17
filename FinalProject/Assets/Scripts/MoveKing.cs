@@ -11,12 +11,14 @@ public class MoveKing : MonoBehaviour
     float lastYPos;
     public static Vector3 flip;
     public GameObject enemyObj1;
-    Vector3 enemyPos;
+    Vector2 enemyPos;
     public GameObject enemyObj;
-    Vector3 enemyPos1;
+    Vector2 enemyPos1;
     float dist;
     float dist1;
     public static int enemyLives = 2;
+    public static int enemyLives1 = 2;
+    public static int enemiesLeft = 2;
 
     // Start is called before the first frame update
     void Start()
@@ -34,10 +36,10 @@ public class MoveKing : MonoBehaviour
     void Update()
     {
         flipKing();
-        enemyPos = new Vector3(enemyObj.transform.position.x, enemyObj.transform.position.y, 0.0f);
-        enemyPos1 = new Vector3(enemyObj1.transform.position.x, enemyObj1.transform.position.y, 0.0f);
-        dist = Vector3.Distance(enemyPos, transform.position);
-        dist1 = Vector3.Distance(enemyPos1, transform.position);
+        enemyPos = new Vector2(enemyObj.transform.position.x, enemyObj.transform.position.y);
+        enemyPos1 = new Vector2(enemyObj1.transform.position.x, enemyObj1.transform.position.y);
+        dist = Vector2.Distance(enemyPos, transform.position);
+        dist1 = Vector2.Distance(enemyPos1, transform.position);
         transform.Translate(Input.GetAxis("Horizontal") * 10.0f * Time.deltaTime, 0.0f, 0.0f);
         transform.Translate(0.0f, Input.GetAxis("Vertical") * 10.0f * Time.deltaTime, 0.0f);
 
@@ -64,8 +66,23 @@ public class MoveKing : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space) && dist1 < 2.0f)
         {
-            enemyLives = enemyLives - 1;
+            enemyLives = enemyLives1 - 1;
             animate.SetFloat("TransAnim", 4);
+        }
+
+        if (enemyLives < 1)
+        {
+            Destroy(enemyObj);
+            enemiesLeft = enemiesLeft - 1;
+        }
+        if (enemyLives1 < 1)
+        {
+            Destroy(enemyObj1);
+            enemiesLeft = enemiesLeft - 1;
+        }
+        if (enemiesLeft < 1)
+        {
+            KingLives.lives.text = "WINNER!";
         }
 
         lastPos = transform.position;

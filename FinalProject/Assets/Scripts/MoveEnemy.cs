@@ -24,11 +24,6 @@ public class MoveEnemy : MonoBehaviour
         kingPos = new Vector3(kingObj.transform.position.x, kingObj.transform.position.y - 1.0f, 0.0f);
         flipEnemy();
         transform.position = Vector3.MoveTowards(transform.position, kingPos, 0.005f);
-
-        if (MoveKing.enemyLives < 1)
-        {
-            Destroy(gameObject);
-        }
     }
 
     void flipEnemy()
