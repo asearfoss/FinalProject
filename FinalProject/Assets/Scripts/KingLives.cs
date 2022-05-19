@@ -13,7 +13,7 @@ public class KingLives : MonoBehaviour
         if (MoveKing.enemiesLeft < 1)
         {
             lives.text = "WINNER!";
-            Invoke("endGame", 2.0f);
+            Invoke("endGame", 4.0f);
         }
         else if (MoveEnemy.kingLives < 0.5f)
         {

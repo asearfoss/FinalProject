@@ -24,8 +24,15 @@ public class MoveKing : MonoBehaviour
     void Start()
     {
         flip = new Vector3(10.0f, 10.0f, 0.0f);
-        enemyObj = GameObject.Find("enemy");
-        enemyObj1 = GameObject.Find("enemy1");
+
+        if (GameObject.Find("enemy") != null)
+        {
+            enemyObj = GameObject.Find("enemy");
+        }
+        if (GameObject.Find("enemy1") != null)
+        {
+            enemyObj1 = GameObject.Find("enemy1");
+        }
 
         lastPos = transform.position;
         lastXPos = transform.position.x;
@@ -36,38 +43,38 @@ public class MoveKing : MonoBehaviour
     void Update()
     {
         flipKing();
-        enemyPos = new Vector2(enemyObj.transform.position.x, enemyObj.transform.position.y);
-        enemyPos1 = new Vector2(enemyObj1.transform.position.x, enemyObj1.transform.position.y);
-        dist = Vector2.Distance(enemyPos, transform.position);
-        dist1 = Vector2.Distance(enemyPos1, transform.position);
-        transform.Translate(Input.GetAxis("Horizontal") * 10.0f * Time.deltaTime, 0.0f, 0.0f);
-        transform.Translate(0.0f, Input.GetAxis("Vertical") * 10.0f * Time.deltaTime, 0.0f);
 
-        if (transform.position.x != lastXPos)
+        if (GameObject.Find("enemy") != null)
         {
-            animate.SetFloat("TransAnim", 1);
+            enemyObj = GameObject.Find("enemy");
+            enemyPos = new Vector2(enemyObj.transform.position.x, enemyObj.transform.position.y);
+            dist = Vector2.Distance(enemyPos, transform.position);
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                animate.SetFloat("TransAnim", 4.0f);
+
+                if (dist < 2.0f)
+                {
+                    enemyLives = enemyLives - 1;
+                }
+            }
         }
-        if (transform.position.y != lastYPos)
+        if (GameObject.Find("enemy1") != null)
         {
-            ifYChange();
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            animate.SetFloat("TransAnim", 4);
-        }
-        if (transform.position == lastPos && !Input.GetKeyDown(KeyCode.Space))
-        {
-            animate.SetFloat("TransAnim", 0);
-        }
-        if (Input.GetKeyDown(KeyCode.Space) && dist < 2.0f)
-        {
-            enemyLives = enemyLives - 1;
-            animate.SetFloat("TransAnim", 4);
-        }
-        if (Input.GetKeyDown(KeyCode.Space) && dist1 < 2.0f)
-        {
-            enemyLives = enemyLives1 - 1;
-            animate.SetFloat("TransAnim", 4);
+            enemyObj1 = GameObject.Find("enemy1");
+            enemyPos1 = new Vector2(enemyObj1.transform.position.x, enemyObj1.transform.position.y);
+            dist1 = Vector2.Distance(enemyPos1, transform.position);
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                animate.SetFloat("TransAnim", 4.0f);
+
+                if (dist1 < 2.0f)
+                {
+                    enemyLives1 = enemyLives1 - 1;
+                }
+            }
         }
 
         if (enemyLives < 1)
@@ -79,6 +86,22 @@ public class MoveKing : MonoBehaviour
         {
             Destroy(enemyObj1);
             enemiesLeft = enemiesLeft - 1;
+        }
+
+        transform.Translate(Input.GetAxis("Horizontal") * 10.0f * Time.deltaTime, 0.0f, 0.0f);
+        transform.Translate(0.0f, Input.GetAxis("Vertical") * 10.0f * Time.deltaTime, 0.0f);
+
+        if (transform.position.x != lastXPos)
+        {
+            animate.SetFloat("TransAnim", 1.0f);
+        }
+        if (transform.position.y != lastYPos)
+        {
+            ifYChange();
+        }
+        if (transform.position == lastPos && !Input.GetKeyDown(KeyCode.Space))
+        {
+            Invoke("idleAnim", 1.0f);
         }
 
         lastPos = transform.position;
@@ -105,12 +128,17 @@ public class MoveKing : MonoBehaviour
     {
         if (Input.GetAxis("Vertical") > 0)
         {
-            animate.SetFloat("TransAnim", 2);
+            animate.SetFloat("TransAnim", 2.0f);
         }
 
         if (Input.GetAxis("Vertical") < 0)
         {
-            animate.SetFloat("TransAnim", 3);
+            animate.SetFloat("TransAnim", 3.0f);
         }
+    }
+
+    void idleAnim()
+    {
+        animate.SetFloat("TransAnim", 0.0f);
     }
 }
