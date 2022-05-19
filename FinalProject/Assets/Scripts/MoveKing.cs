@@ -80,10 +80,6 @@ public class MoveKing : MonoBehaviour
             Destroy(enemyObj1);
             enemiesLeft = enemiesLeft - 1;
         }
-        if (enemiesLeft < 1)
-        {
-            KingLives.lives.text = "WINNER!";
-        }
 
         lastPos = transform.position;
         lastXPos = transform.position.x;

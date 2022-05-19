@@ -5,24 +5,20 @@ using UnityEngine.UI;
 
 public class KingLives : MonoBehaviour
 {
-    public static Text lives;
+    public Text lives;
 
     // Update is called once per frame
     void Update()
     {
-        if (MoveEnemy.kingLives < 0.5 || MoveKing.enemiesLeft < 1)
+        if (MoveKing.enemiesLeft < 1)
         {
-            if (MoveKing.enemiesLeft < 1)
-            {
-                KingLives.lives.text = "WINNER!";
-            }
-            if (MoveEnemy.kingLives < 0.5)
-            {
-                lives.text = "GAME OVER!";
-            }
-
+            lives.text = "WINNER!";
             Invoke("endGame", 2.0f);
-
+        }
+        else if (MoveEnemy.kingLives < 0.5f)
+        {
+            lives.text = "GAME OVER!";
+            Invoke("endGame", 2.0f);
         }
         else
         {
