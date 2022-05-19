@@ -17,12 +17,4 @@ public class MoveCam : MonoBehaviour
     {
         transform.position = new Vector3(kingObj.transform.position.x, kingObj.transform.position.y - 1.0f, -10.0f);
     }
-
-    void OnCollisionExit2D(Collision2D collision)
-    {
-        if (Input.GetKeyDown(KeyCode.Space) && collision.gameObject.name == "enemy")
-        {
-            MoveKing.enemyLives = MoveKing.enemyLives - 1;
-        }
-    }
 }

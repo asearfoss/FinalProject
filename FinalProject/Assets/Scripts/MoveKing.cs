@@ -16,8 +16,8 @@ public class MoveKing : MonoBehaviour
     Vector2 enemyPos1;
     float dist;
     float dist1;
-    public static int enemyLives = 2;
-    public static int enemyLives1 = 2;
+    public static bool enemyLives = true;
+    public static bool enemyLives1 = true;
     public static int enemiesLeft = 2;
 
     // Start is called before the first frame update
@@ -54,9 +54,9 @@ public class MoveKing : MonoBehaviour
             {
                 animate.SetFloat("TransAnim", 4.0f);
 
-                if (dist < 2.0f)
+                if (dist < 4.0f)
                 {
-                    enemyLives = enemyLives - 1;
+                    enemyLives = false;
                 }
             }
         }
@@ -70,22 +70,24 @@ public class MoveKing : MonoBehaviour
             {
                 animate.SetFloat("TransAnim", 4.0f);
 
-                if (dist1 < 2.0f)
+                if (dist1 < 4.0f)
                 {
-                    enemyLives1 = enemyLives1 - 1;
+                    enemyLives1 = false;
                 }
             }
         }
 
-        if (enemyLives < 1)
+        if (enemyLives == false)
         {
             Destroy(enemyObj);
             enemiesLeft = enemiesLeft - 1;
+            enemyLives = true;
         }
-        if (enemyLives1 < 1)
+        if (enemyLives1 == false)
         {
             Destroy(enemyObj1);
             enemiesLeft = enemiesLeft - 1;
+            enemyLives1 = true;
         }
 
         transform.Translate(Input.GetAxis("Horizontal") * 10.0f * Time.deltaTime, 0.0f, 0.0f);
@@ -98,6 +100,10 @@ public class MoveKing : MonoBehaviour
         if (transform.position.y != lastYPos)
         {
             ifYChange();
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            animate.SetFloat("TransAnim", 4.0f);
         }
         if (transform.position == lastPos && !Input.GetKeyDown(KeyCode.Space))
         {
